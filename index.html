@@ -7,25 +7,28 @@
     <title>Document</title>
 </head>
 <body>
-    It is said that the best way to improve server security is to reduce the attack surface. Network
+    <p>It is said that the best way to improve server security is to reduce the attack surface. Network
 communication in any system happens with the help of logical network ports, be it TCP ports
 or UDP ports. One part of the attack surface is the number of open ports that are waiting
 for connection to be established. It is always a good idea to block all unrequired ports. Any
 traffic coming to these ports can be filtered, that is, allowed or blocked with the help of a
-filtering system.
+filtering system.</p>
+<p>
 The Linux kernel provides a built-in packet filtering mechanism called netfilter, which is used
 to filter the traffic coming in or going out of the system. All modern Linux firewall systems use
 netfilter under the hood. Iptables is a well-known and popular user interface to set up and
 manage filtering rules for netfilter. It is a complete firewall solution that is highly configurable
 and highly flexible. However, iptables need effort on the user's part to master the firewall
 setup. Various frontend tools have been developed to simplify the configuration of iptables.
-UFW is among the most popular frontend solutions to manage iptables.
+UFW is among the most popular frontend solutions to manage iptables.</p>
+<p>
 Uncomplicated firewall (UFW) provides easy-to-use interface for people unfamiliar
 with firewall concepts. It provides a framework for managing netfilter as well as the
 command-line interface to manipulate the firewall. With its small command set and plain
 English parameters, UFW makes it quick and easy to understand and set up firewall rules.
 At the same time, you can use UFW to configure most of the rules possible with iptables.
-UFW comes preinstalled with all Ubuntu installations after version 8.04 LTS.
+UFW comes preinstalled with all Ubuntu installations after version 8.04 LTS.</p>
+
 In this recipe, we will secure our Ubuntu server with the help of UFW and also look at some
 advance configurations possible with UFW.
 Getting ready
