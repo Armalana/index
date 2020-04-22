@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    It is said that the best way to improve server security is to reduce the attack surface. Network
+communication in any system happens with the help of logical network ports, be it TCP ports
+or UDP ports. One part of the attack surface is the number of open ports that are waiting
+for connection to be established. It is always a good idea to block all unrequired ports. Any
+traffic coming to these ports can be filtered, that is, allowed or blocked with the help of a
+filtering system.
+The Linux kernel provides a built-in packet filtering mechanism called netfilter, which is used
+to filter the traffic coming in or going out of the system. All modern Linux firewall systems use
+netfilter under the hood. Iptables is a well-known and popular user interface to set up and
+manage filtering rules for netfilter. It is a complete firewall solution that is highly configurable
+and highly flexible. However, iptables need effort on the user's part to master the firewall
+setup. Various frontend tools have been developed to simplify the configuration of iptables.
+UFW is among the most popular frontend solutions to manage iptables.
+Uncomplicated firewall (UFW) provides easy-to-use interface for people unfamiliar
+with firewall concepts. It provides a framework for managing netfilter as well as the
+command-line interface to manipulate the firewall. With its small command set and plain
+English parameters, UFW makes it quick and easy to understand and set up firewall rules.
+At the same time, you can use UFW to configure most of the rules possible with iptables.
+UFW comes preinstalled with all Ubuntu installations after version 8.04 LTS.
+In this recipe, we will secure our Ubuntu server with the help of UFW and also look at some
+advance configurations possible with UFW.
+Getting ready
+You will need an access to a root account or an account with root privileges.
+How to do it…
+Follow these steps to secure network with uncomplicated firewall:
+1. UFW comes preinstalled on Ubuntu systems. If it's not, you can install it with the
+following commands:
+$ sudo apt-get udpate
+$ sudo apt-get install UFW
+Networking
+68
+2. Check the status of UFW:
+$ sudo ufw status
+3. Add a new rule to allow SSH:
+$ sudo ufw allow ssh
+4. Alternatively, you can use a port number to open a particular port:
+$ sudo ufw allow 22
+5. Allow only TCP traffic over HTTP (port 80):
+$ sudo ufw allow http/tcp
+6. Deny incoming FTP traffic:
+$ sudo ufw deny ftp
+7. Check all added rules before starting the firewall:
+$ sudo ufw show added
+8. Now enable the firewall:
+$ sudo ufw enable
+Chapter 2
+69
+9. Check the ufw status, the verbose parameter is optional:
+$ sudo ufw status verbose
+10. Get a numbered list of added rules:
+$ sudo ufw status numbered
+11. You can also allow all ports in a range by specifying a port range:
+$ sudo ufw allow 1050:5000/tcp
+Networking
+70
+12. If you want to open all ports for a particular IP address, use the following command:
+$ sudo ufw allow from 10.0.2.100
+13. Alternatively, you can allow an entire subnet, as follows:
+$ sudo ufw allow from 10.0.2.0/24
+14. You can also allow or deny a specific port for a given IP address:
+$ sudo ufw allow from 10.0.2.100 to any port 2222
+$ sudo ufw deny from 10.0.2.100 to any port 5223
+15. To specify a protocol in the preceding rule, use the following command:
+$ sudo ufw deny from 10.0.2.100 proto tcp to any port 5223
+16. Deleting rules:
+$ sudo ufw delete allow ftp
+17. Delete rules by specifying their numbers:
+$ sudo ufw status numbered
+$ sudo ufw delete 2
+18. Add a new rule at a specific number:
+$ sudo ufw insert 1 allow 5222/tcp # Inserts a rule at
+number 1
+19. If you want to reject outgoing FTP connections, you can use the
+following command:
+$ sudo ufw reject out ftp
+20. UFW also supports application profiles. To view all application profiles,
+use the following command:
+$ sudo ufw app list
+21. Get more information about the app profile using the following command:
+$ sudo ufw app info OpenSSH
+22. Allow the application profile as follows:
+$ sudo ufw allow OpenSSH
+23. Set ufw logging levels [ off | low | medium | high | full ] with the help of the
+following command:
+$ sudo ufw logging medium
+Chapter 2
+71
+24. View firewall reports with the show parameter:
+$ sudo ufw show added # list of rules added
+$ sudo ufw show raw # show complete firewall
+25. Reset ufw to its default state (all rules will be backed up by UFW):
+$ sudo ufw reset
+There's more…
+UFW also provides various configuration files that can be used:
+f /etc/default/ufw : This is the main configuration file.
+f /etc/ufw/sysctl.conf : These are the kernel network variables. Variables in this
+file override variables in /etc/sysctl.conf .
+f /var/lib/ufw/user[6].rules or /lib/ufw/user[6].rules are the rules
+added via the ufw command.
+f /etc/ufw/before.init are the scripts to be run before the UFW initialization.
+f /etc/ufw/after.init are the scripts to be run after the UFW initialization.
+See also
+f Check logging section of the UFW community page for an explanation of UFW logs at
+https://help.ubuntu.com/community/UFW
+f Check out the UFW manual pages with the following command:
+$ man ufw
+</body>
+</html>
